@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="phone.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="music_player">
+            <nav>
+                <div class="circle">
+                    <span class="material-symbols-outlined">
+                        arrow_back_ios
+                    </span>
+                </div>
+                <div class="circle">
+                    <span class="material-symbols-outlined">
+                        menu
+                    </span>
+                </div>
+            </nav>
+            <div class="loader">
+                <div class="song_img">
+
+                </div>
+
+            </div>
+            <h1>Lal Ghagra</h1>
+            <p>Pawan Singh & Shilpi Raj</p>
+
+            <audio id="song">
+                <source src="media/Lal Ghaghra_320(PagalWorld.com.pe).mp3" type="audio/mpeg">
+            </audio>
+            <input type="range" value="0" id="progress">
+
+            <div class="controls">
+                <div><span class="material-symbols-outlined">
+                        fast_rewind
+                    </span></div>
+                <div onclick="playpause()"><span class="material-symbols-outlined" id="control">
+                        play_pause
+                    </span></div>
+                <div><span class="material-symbols-outlined">
+                        fast_forward
+                    </span></div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</body>
+
+<script>
+    let progress = document.getElementById("progress");
+    let song = document.getElementById("song");
+    let control = document.getElementById("control");
+
+
+    song.onloadedmetadata = function () {
+        progress.max = song.duration;
+        progress.value = song.currentTime;
+
+    }
+
+    function playpause() {
+        if (control.classList.contains("pause")) {
+            song.pause();
+            control.classList.remove("pause");
+            control.classList.add("play_arrow");
+        }
+        else {
+            song.play();
+            control.classList.add("pause");
+            control.classList.remove("play_arrow");
+        }
+
+    }
+
+    if (song.play()) {
+        setInterval(() => {
+            progress.value = song.currentTime;
+        }, 500);
+    }
+
+    progress.onchange = function () {
+        song.play();
+        song.currentTime = progress.value;
+        control.classList.add("play_arrow");
+        control.classList.remove("pause");
+
+    }
+
+</script>
+
+
+</html>
